@@ -1,0 +1,131 @@
+
+Arrow Name: Адрес доставки
+Arrow Source: Получение необходимой  информации о покупателе
+Arrow Source Type: Output
+
+Arrow Name: Акт о получении
+Arrow Source: Доставка
+Arrow Source Type: Output
+
+Arrow Name: Банк
+Arrow Source: { Border }
+Arrow Source Type: Mechanism
+
+Arrow Name: Банковская карта
+Arrow Source: { Border }
+Arrow Source Type: Input
+
+Arrow Name: Верные данные заказа
+Arrow Source: Проверка информации  заказа
+Arrow Source Type: Output
+
+Arrow Name: Высшее руководство
+Arrow Source: { Border }
+Arrow Source Type: Control
+
+Arrow Name: Денежные средства
+Arrow Source: Возврат товара
+Arrow Source Type: Output
+
+Arrow Name: Деньги на закупку
+Arrow Source: { Border }
+Arrow Source Type: Input
+
+Arrow Name: Доставленные товары
+Arrow Source: Доставка товара в магазин
+Arrow Source Type: Output
+
+Arrow Name: Заказ магазина
+Arrow Source: Оформление заказа  на товары
+Arrow Source Type: Output
+
+Arrow Name: Закзаз клиента
+Arrow Source: Составление заказа
+Arrow Source Type: Output
+
+Arrow Name: Законы и НПА
+Arrow Source: { Border }
+Arrow Source Type: Control
+
+Arrow Name: Закупленный товар
+Arrow Source: Оплата и подтверждение  заказа
+Arrow Source Type: Output
+
+Arrow Name: Заявка покупателя
+Arrow Source: { Border }
+Arrow Source Type: Input
+
+Arrow Name: Квитанция
+Arrow Source: Продажа
+Arrow Source Type: Output
+
+Arrow Name: Курьер
+Arrow Source: { Border }
+Arrow Source Type: Mechanism
+
+Arrow Name: Менеджер
+Arrow Source: { Border }
+Arrow Source Type: Mechanism
+
+Arrow Name: Наличные
+Arrow Source: { Border }
+Arrow Source Type: Input
+
+Arrow Name: Оптовая заявка
+Arrow Source: { Border }
+Arrow Source Type: Input
+
+Arrow Name: Перечень товаров
+Arrow Source: Учёт имеющихся  товаров
+Arrow Source Type: Output
+
+Arrow Name: Покупатель
+Arrow Source: { Border }
+Arrow Source Type: Mechanism
+
+Arrow Name: Полная информация о заказе
+Arrow Source: Дополнение заказа
+Arrow Source Type: Output
+
+Arrow Name: Продавец
+Arrow Source: { Border }
+Arrow Source Type: Mechanism
+
+Arrow Name: Расписание поставок
+Arrow Source: { Border }
+Arrow Source Type: Input
+
+Arrow Name: Реализованный товар
+Arrow Source: Продажа
+Arrow Source Type: Output
+
+Arrow Source: Доставка
+Arrow Source Type: Output
+
+Arrow Name: Список покупок
+Arrow Source: Составление списка  покупаемых товаров
+Arrow Source Type: Output
+
+Arrow Name: Список товаров
+Arrow Source: Учёт имеющихся  товаров
+Arrow Source Type: Output
+
+Arrow Name: Список товаров на складе
+Arrow Source: { Border }
+Arrow Source Type: Input
+
+Arrow Name: Статус заказа "оплачен"
+Arrow Source: Продажа
+Arrow Source Type: Output
+
+Arrow Name: Товарная накладная
+Arrow Source: Оплата и подтверждение  заказа
+Arrow Source Type: Output
+
+Arrow Name: Трудовой договор
+Arrow Source: { Border }
+Arrow Source Type: Control
+
+Arrow Name: ФИО клиента
+Arrow Source: Получение необходимой  информации о покупателе
+Arrow Source Type: Output

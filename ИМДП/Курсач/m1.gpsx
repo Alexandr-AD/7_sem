@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ExtendedGpssModel>
+  <Lines>
+    <Line Id="1">ochered1 QTABLE OCHER1,10,10,30</Line>
+    <Line Id="28">ochered2 QTABLE OCHER2,10,10,30</Line>
+    <Line Id="29">ochered3 QTABLE OCHER3,10,10,30</Line>
+    <Line Id="27">GENERATE (EXPONENTIAL(1,0,10)) ; поступление заявок с интервалом в 10 мин.</Line>
+    <Line Id="2">TRANSFER 0.5,sp1,sp2 ; распред. заявок между sp1 и sp2 (по 50%)</Line>
+    <Line Id="3">sp1 SPLIT 2 ; размножение заявок (становится 3 детали)</Line>
+    <Line Id="4">blok1 QUEUE OCHER1 ; занятие очереди 1</Line>
+    <Line Id="5">SEIZE OBRABOTKA ; занятие этапа предв. обработки</Line>
+    <Line Id="6">DEPART OCHER1 ; освобождение очереди 1</Line>
+    <Line Id="7">ADVANCE 7 ; задержка на этапе предв. обработки</Line>
+    <Line Id="8">RELEASE OBRABOTKA ; освобождение этапа предв. обработки</Line>
+    <Line Id="9">TRANSFER ,blok2 ; переход к блоку 2</Line>
+    <Line Id="10">sp2 SPLIT 2</Line>
+    <Line Id="11">blok2 QUEUE OCHER2 ;занятие очереди 2</Line>
+    <Line Id="12">SEIZE SBORKA ; занятие этапа сборки</Line>
+    <Line Id="13">DEPART OCHER2  ;освобождение очереди 2</Line>
+    <Line Id="14">ADVANCE 6 ;задержка на этапе сборки</Line>
+    <Line Id="15">RELEASE SBORKA ; освобождение этапа сборки</Line>
+    <Line Id="16">TRANSFER 0.04,blok3,blok1 ; 4% заявок отпр-ся в блок 1, 96% в блок 3</Line>
+    <Line Id="17">blok3 QUEUE OCHER3 ; занятие очереди 3</Line>
+    <Line Id="18">SEIZE REGULIROVKA ; занятие этапа регулировки</Line>
+    <Line Id="19">DEPART OCHER3 ; освобождение очереди 3</Line>
+    <Line Id="20">ADVANCE 8 ; задержка на этапе сборки</Line>
+    <Line Id="21">RELEASE REGULIROVKA ; освобождение этапа регулировки</Line>
+    <Line Id="22">TERMINATE ; удаление заявок</Line>
+    <Line Id="23">GENERATE 1440 ; прогон модели в течении 24 часов</Line>
+    <Line Id="24">TERMINATE 1 ; удаление заявок (окончание моделирования)</Line>
+    <Line Id="25">;START 1 ; 1 завершение прогона модели</Line>
+  </Lines>
+</ExtendedGpssModel>

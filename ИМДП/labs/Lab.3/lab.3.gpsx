@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ExtendedGpssModel>
+  <Lines>
+    <Line Id="1">; GPSS World Sample File - STOCKCTL.GPS, by Gerard F. Cummings</Line>
+    <Line Id="2">****************************************************************</Line>
+    <Line Id="3">*                                                              *</Line>
+    <Line Id="4">*       Factory Warehouse and Distributors Inventory           *</Line>
+    <Line Id="5">*                Time unit is one week                         *</Line>
+    <Line Id="6">****************************************************************</Line>
+    <Line Id="7">         RMULT 94521         </Line>
+    <Line Id="8">         INITIAL   X1,3400           ;Fact warehouse inventory</Line>
+    <Line Id="9">         INITIAL   X2,2100           ;Fact warehouse order pnt</Line>
+    <Line Id="10">         INITIAL   X3,2300           ;Fact warehouse order qty</Line>
+    <Line Id="11">         INITIAL   X$Stock1,430      ;Dist 1 stock initial </Line>
+    <Line Id="12">         INITIAL   X$Stock2,600      ;Dist 2 stock initial</Line>
+    <Line Id="13">         INITIAL   X$Stock3,1000     ;Dist 3 stock initial </Line>
+    <Line Id="14">         INITIAL   X$EOQ1,115        ;Economic order qty 1  </Line>
+    <Line Id="15">         INITIAL   X$EOQ2,165        ;Economic order qty 2</Line>
+    <Line Id="16">         INITIAL   X$EOQ3,240        ;Economic order qty 3 </Line>
+    <Line Id="17">         INITIAL   X$Point1,240      ;Order point 1</Line>
+    <Line Id="18">         INITIAL   X$Point2,430      ;Order point 2</Line>
+    <Line Id="19">         INITIAL   X$Point3,630      ;Order point 3</Line>
+    <Line Id="20">Demand1  VARIABLE  (abs(Normal(2,64,24)))</Line>
+    <Line Id="21">Demand2  VARIABLE  (Normal(3,128,32))</Line>
+    <Line Id="22">Demand3  VARIABLE  (Normal(4,192,48))</Line>
+    <Line Id="23">Total    VARIABLE  P1+P2+P3</Line>
+    <Line Id="24">Sales    TABLE     X5,200,200,20</Line>
+    <Line Id="25">Region_1 TABLE     s$Stock1,0,40,20</Line>
+    <Line Id="26">Region_2 TABLE     s$Stock2,0,40,20</Line>
+    <Line Id="27">Region_3 TABLE     s$Stock3,0,40,20</Line>
+    <Line Id="28">Factory  TABLE     s$stockFab,0,200,20</Line>
+    <Line Id="82">stock1 STORAGE 1000</Line>
+    <Line Id="83">stock2 STORAGE  1000</Line>
+    <Line Id="84">stock3 STORAGE 1000</Line>
+    <Line Id="85">stockFab STORAGE 4000</Line>
+    <Line Id="29">****************************************************************         </Line>
+    <Line Id="30">*         Reordering by Factory Warehouse   </Line>
+    <Line Id="31">         GENERATE  ,,,1,2            ;Order point xact</Line>
+    <Line Id="32">Backhere TEST LE   s$stockFab,X2             ;Factory order point?    </Line>
+    <Line Id="33">         ADVANCE   4                 ;Lead time is 4 weeks </Line>
+    <Line Id="34">         *SAVEVALUE 1+,X3             ;Inv increase by order qty</Line>
+    <Line Id="86">ENTER stockFab,X3</Line>
+    <Line Id="35">         TRANSFER  ,Backhere         ;Cycle xact around</Line>
+    <Line Id="36">****************************************************************         </Line>
+    <Line Id="37">*         Reordering at Each of the Distributors</Line>
+    <Line Id="38">         GENERATE  1,,,1             ;First distributor</Line>
+    <Line Id="39">Distr1   TEST L    s$Stock1,X$Point1 ;Order point reached?</Line>
+    <Line Id="40">         ADVANCE   1                 ;Lead time = 1 week</Line>
+    <Line Id="41">*       SAVEVALUE 1-,X$EOQ1         ;Warehouse supplies</Line>
+    <Line Id="88">LEAVE stockFab,X$EOQ1</Line>
+    <Line Id="42">         *SAVEVALUE Stock1+,X$EOQ1    ;Distr invent increased</Line>
+    <Line Id="89">ENTER stock1,X$EOQ1</Line>
+    <Line Id="43">         TRANSFER  ,Distr1           ;Xact finished</Line>
+    <Line Id="80"></Line>
+    <Line Id="44">         GENERATE  1,,,1             ;Second distributor</Line>
+    <Line Id="45">Distr2   TEST L    s$Stock2,X$Point2 ;Order point reached         </Line>
+    <Line Id="46">         ADVANCE   1                 ;Lead time = 1 week</Line>
+    <Line Id="47">         *SAVEVALUE 1-,X$EOQ2         ;Warehouse supplies</Line>
+    <Line Id="90">LEAVE stockFab,X$EOQ2</Line>
+    <Line Id="91">ENTER stock2,X$EOQ2</Line>
+    <Line Id="48">*         SAVEVALUE Stock2+,X$EOQ2    ;Inventory increased</Line>
+    <Line Id="49">         TRANSFER  ,Distr2           ;Cycle xact around</Line>
+    <Line Id="81"></Line>
+    <Line Id="50">         GENERATE  1,,,1             ;Third distributor</Line>
+    <Line Id="51">Distr3   TEST L    s$Stock3,X$Point3 ;Order point reached?</Line>
+    <Line Id="52">         ADVANCE   1                 ;Lead time = 1 week</Line>
+    <Line Id="53"> *        SAVEVALUE 1-,X$EOQ3         ;Warehouse supplies EOQ</Line>
+    <Line Id="54">*         SAVEVALUE Stock3+,X$EOQ3    ;Distr invent increased</Line>
+    <Line Id="92">LEAVE stockFab,X$EOQ3</Line>
+    <Line Id="93">ENTER stock3,X$EOQ3</Line>
+    <Line Id="55">         TRANSFER  ,Distr3           ;Cycle xact around</Line>
+    <Line Id="56">****************************************************************         </Line>
+    <Line Id="57">*         Weekly Demand at Each Distributor</Line>
+    <Line Id="58">         GENERATE  1,,,,3            ;Priority weekly demand</Line>
+    <Line Id="59">         ASSIGN    1,V$Demand1       ;P1 = Demand distr one</Line>
+    <Line Id="60">         ASSIGN    2,V$Demand2       ;P2 = Demand distr two         </Line>
+    <Line Id="61">         ASSIGN    3,V$Demand3       ;P3 = Demand distr three         </Line>
+    <Line Id="62">         *SAVEVALUE Stock1-,P1        ;Distr 1 Weeklly demand</Line>
+    <Line Id="63">         *SAVEVALUE Stock2-,P2        ;Distr 2 Weekly demand</Line>
+    <Line Id="64">         *SAVEVALUE Stock3-,P3        ;Distr 3 Weekly demand</Line>
+    <Line Id="94">LEAVE stock1,p1</Line>
+    <Line Id="95">LEAVE stock2,p2</Line>
+    <Line Id="96">LEAVE stock3,p3</Line>
+    <Line Id="97"></Line>
+    <Line Id="65">         SAVEVALUE 5+,V$Total        ;Accumulate total demand</Line>
+    <Line Id="66">         TABULATE  Region_1          ;Record invent distr 1</Line>
+    <Line Id="67">         TABULATE  Region_2          ;Record invent distr 2</Line>
+    <Line Id="68">         TABULATE  Region_3          ;Record invent distr 3</Line>
+    <Line Id="69">         TABULATE  Factory           ;Factory warehouse invent</Line>
+    <Line Id="70">         TERMINATE 1         </Line>
+    <Line Id="71">****************************************************************</Line>
+    <Line Id="72">*         Monthly Recording of Sales</Line>
+    <Line Id="73">         GENERATE  4,,,,1            ;Low priority xact monthly</Line>
+    <Line Id="74">         TABULATE  Sales         </Line>
+    <Line Id="75">         SAVEVALUE 5,0               ;Reset sales=0 each month</Line>
+    <Line Id="76">         TERMINATE                   ;Xact finished</Line>
+    <Line Id="77">**************************************************************** </Line>
+    <Line Id="78">GENERATE ,,,1</Line>
+    <Line Id="98">ENTER stock1,X$Stock1</Line>
+    <Line Id="99">ENTER stock2,(X$Stock2+100)</Line>
+    <Line Id="100">ENTER stock3,X$Stock3;(X$Stock3+100)</Line>
+    <Line Id="101">ENTER stockFab,X1</Line>
+    <Line Id="103">TERMINATE </Line>
+    <Line Id="79"></Line>
+  </Lines>
+</ExtendedGpssModel>

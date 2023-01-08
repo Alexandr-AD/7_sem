@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ExtendedGpssModel>
+  <Lines>
+    <Line Id="1">ochered1 QTABLE OCHER1,10,10,30</Line>
+    <Line Id="26">ochered2 QTABLE OCHER2,10,10,30</Line>
+    <Line Id="27">ochered3 QTABLE OCHER3,10,10,30</Line>
+    <Line Id="25">GENERATE (EXPONENTIAL(1,0,10))</Line>
+    <Line Id="2">TRANSFER 0.5,sp1,sp2</Line>
+    <Line Id="28">sp1 SPLIT 2 ; размножение заявок (становится 3 детали)</Line>
+    <Line Id="3">blok1 QUEUE OCHER1</Line>
+    <Line Id="4">SEIZE OBRABOTKA</Line>
+    <Line Id="5">DEPART OCHER1</Line>
+    <Line Id="6">ADVANCE 7</Line>
+    <Line Id="7">RELEASE OBRABOTKA</Line>
+    <Line Id="8">TRANSFER ,blok2</Line>
+    <Line Id="9">sp2 SPLIT 2</Line>
+    <Line Id="10">blok2 QUEUE OCHER2</Line>
+    <Line Id="11">SEIZE SBORKA</Line>
+    <Line Id="12">DEPART OCHER2</Line>
+    <Line Id="13">ADVANCE 5</Line>
+    <Line Id="14">RELEASE SBORKA</Line>
+    <Line Id="15">TRANSFER 0.04,blok3,blok1</Line>
+    <Line Id="16">blok3 QUEUE OCHER3</Line>
+    <Line Id="17">SEIZE REGULIROVKA</Line>
+    <Line Id="18">DEPART OCHER3</Line>
+    <Line Id="19">ADVANCE 5</Line>
+    <Line Id="20">RELEASE REGULIROVKA</Line>
+    <Line Id="21">TERMINATE</Line>
+    <Line Id="22">GENERATE 1440</Line>
+    <Line Id="23">TERMINATE 1</Line>
+    <Line Id="24"></Line>
+  </Lines>
+</ExtendedGpssModel>
